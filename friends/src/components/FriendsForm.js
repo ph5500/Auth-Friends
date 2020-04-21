@@ -24,7 +24,7 @@ class FriendsForm extends React.Component{
         })
     }
 
-    cons
+    
 
     
     render(){
