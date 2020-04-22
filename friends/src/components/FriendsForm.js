@@ -1,6 +1,7 @@
 import React from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-
+import NewFriend from "./NewFriends";
+// import Loader from "react-loader-spinner";
 class FriendsForm extends React.Component {
   state = {
     friends: []
@@ -25,6 +26,12 @@ class FriendsForm extends React.Component {
       });
   };
 
+  newData = response => {
+    this.setState({
+      friends: response.data
+    })
+  }
+
   render() {
     return (
       <div>
@@ -38,6 +45,7 @@ class FriendsForm extends React.Component {
             </div>
           );
         })}
+        <NewFriend state={this.state} newData={this.newData} />
       </div>
     );
   }

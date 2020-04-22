@@ -1,13 +1,14 @@
 import React from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
-// import Loader from "react-loader-spinner";
+import Loader from "react-loader-spinner";
 
 class Login extends React.Component {
     state = {
         credentials: {
             username: '',
             password: '',
-        }
+        },
+        isLoading: false,
     };
 
     handleChanges = e => {
@@ -22,6 +23,7 @@ class Login extends React.Component {
 
     login = e => {
         e.preventDefault();
+        this.setState({ isLoading: true });
         axiosWithAuth()
             .post('/api/login', this.state.credentials)
             //may need to add in dot notation credentials above
@@ -30,10 +32,14 @@ class Login extends React.Component {
                 // redux - send the token to the redux store
                 // browser storage - localStorage (this is probably the least secure choice)
                 // cookies
+                this.setState({ isLoading: false });
                 localStorage.setItem('token', JSON.stringify(response.data.payload));
                 this.props.history.push('/protected');
             })
-            .catch(err => console.log({ err }));
+            .catch(err => {
+                console.log({ err });
+                this.setState({ isLoading: false });
+            });
     };
 
     render() {
@@ -54,7 +60,20 @@ class Login extends React.Component {
                         onChange={this.handleChanges}
                         placeholder="Password"
                     />
-                    <button>Submit</button>
+                    {this.state.isLoading ?
+                        // <Loader
+                        //     type="Puff"
+                        //     color="#00BFFF"
+                        //     height={100}
+                        //     width={100}
+                        //     timeout={3000} //3 sec
+                        // />
+                        <>Loading...</>
+                        :
+                        <button>Submit</button>
+                    }
+
+
 
                 </form>
             </div>
@@ -65,12 +84,3 @@ class Login extends React.Component {
 export default Login;
 
 
-{/* {props.isLoading && (
-                        <Loader
-                            type="Puff"
-                            color="#00BFFF"
-                            height={100}
-                            width={100}
-                            timeout={3000} //3 sec
-                        />
-                    )}; */}

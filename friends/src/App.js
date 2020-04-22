@@ -20,6 +20,9 @@ function App() {
           <li>
             <Link to='/protected'>Protected Page</Link>
           </li>
+          <li>
+            <Link to='/protected'> friends</Link>
+          </li>
         </ul>
         <Switch>
           <Route exact path='/' component={Login}></Route>
