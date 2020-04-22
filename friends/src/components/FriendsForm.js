@@ -26,7 +26,7 @@ class FriendsForm extends React.Component {
       });
   };
 
-  newData = response => {
+  updateData = response => {
     this.setState({
       friends: response.data
     })
@@ -45,7 +45,7 @@ class FriendsForm extends React.Component {
             </div>
           );
         })}
-        <NewFriend state={this.state} newData={this.newData} />
+        <NewFriend state={this.state} updateData={this.updateData} />
       </div>
     );
   }

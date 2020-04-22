@@ -30,7 +30,7 @@ class NewFriend extends React.Component {
         e.preventDefault();
         axiosWithAuth().post('/api/friends', this.state.newFriends)
             .then(response => {
-                console.log("this is addFriend data", response)
+                // console.log("this is addFriend data", response)
                 this.props.updateData(response);
             }).catch(err => { console.log("error from adding new friends", err) })
 
@@ -63,10 +63,6 @@ class NewFriend extends React.Component {
                     onChange={this.handleChanges}
                 />
                 <button>Add a new friend</button>
-
-
-
-
 
             </form>
         )
